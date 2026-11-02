@@ -1,0 +1,8 @@
+<p>linear-generator works!</p>
+<button [disabled]="loading()" (click)="download()">
+    {{ loading() ? 'Downloading...' : 'Download XML' }}
+</button>
+
+@if (error()) {
+<p style="color: red;">Error downloading file.</p>
+}
