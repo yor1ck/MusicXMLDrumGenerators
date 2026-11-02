@@ -48,7 +48,7 @@ export class LinearGenerator {
 };
 
     this.http
-      .post('/api/export/xml', dataPayload, {
+      .post('https://localhost:7013/xml', dataPayload, {
         responseType: 'blob',      // ← тело ответа как Blob
         observe: 'response',       // ← чтобы прочитать Content-Disposition
         headers: new HttpHeaders({
@@ -59,8 +59,13 @@ export class LinearGenerator {
       .subscribe({
         next: (res) => {
           const blob = res.body!;
-          const filename =  'export.musicxml';
-          this.saveBlob(blob, filename);
+          const customFileName = res.headers.get('X-Pattern-Title');
+          let fileName =  'default.musicxml'; 
+          if (customFileName)
+            {
+              fileName = customFileName;
+            }        
+          this.saveBlob(blob, fileName);
           this.loading.set(false);
         },
         error: (err) => {
@@ -87,14 +92,14 @@ export class LinearGenerator {
     }
     this.error.set(message);
   }
-  private saveBlob(blob: Blob, filename: string) {
+  private saveBlob(blob: Blob, fileName: string) {
     // Гарантируем MIME, если сервер не отдал его
     const typed = blob.type ? blob : new Blob([blob], { type: 'application/xml' });
 
     const url = URL.createObjectURL(typed);
     const a = document.createElement('a');
     a.href = url;
-    a.download = "TestMusicxml.musicxml";
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     a.remove();
