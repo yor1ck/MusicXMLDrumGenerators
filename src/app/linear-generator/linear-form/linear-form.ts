@@ -1,9 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
+import { initialInstrumentData, initialLinearData, LinearRequest } from '../linear-model';
+import { form, FormField } from '@angular/forms/signals';
+
 
 @Component({
-  imports: [],
+  imports: [FormField],
   selector: 'app-linear-form',
   styleUrl: './linear-form.css',
   templateUrl: './linear-form.html',
 })
-export class LinearForm {}
+export class LinearForm {
+  linearGeneratorModel = signal<LinearRequest>(initialLinearData);
+  linearGeneratorForm = form(this.linearGeneratorModel);
+  generatePreset =output<LinearRequest>();
+  onSubmit() {
+      console.log('Form submitted:', this.linearGeneratorModel()); 
+      this.generatePreset.emit(this.linearGeneratorModel())   
+  }
+  onReset() {
+  }
+   addInstrument() {
+    this.linearGeneratorModel.update(preset => ({
+      ...preset,
+      Instruments: [...preset.Instruments, { ...initialInstrumentData }]
+    }));
+  }
+   removeInstrument(index: number) {
+    this.linearGeneratorModel.update(preset => ({
+      ...preset,
+      Instruments: preset.Instruments.filter((_, i) => i !== index)
+    }));
+  }
+}

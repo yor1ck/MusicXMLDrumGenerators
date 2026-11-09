@@ -15,40 +15,11 @@ export class LinearGenerator {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
-  download(){
+  onGeneratePreset(preset:LinearRequest){
     this.loading.set(true);
     this.error.set(null);
 
-    const dataPayload : LinearRequest= {
-    Title:"MyTestTitle",
-    MeasuresCount:64,
-    Beats:4,
-    BeatType:"Quarter",
-    NotesType:"Sixteenth",
-    SpecialSnare:"HalfTime",
-    StickingType:"None",
-    ShowStickings:false,
-    EnableHandRestrictions:false,
-    RemoveMeasureLimits:true,
-    Instruments:[
-        {
-            Id: 37,
-            HasLimit: false,
-            Limit: 0,
-            Probability: 1,
-            AccentProbability: 0,
-            IsStarting:true
-        },
-        {
-            Id: 39,
-            HasLimit: false,
-            Limit: 0,
-            Probability: 1,
-            AccentProbability: 0,
-            IsStarting:false
-        }
-    ]
-};
+    const dataPayload : LinearRequest= preset;
 
     this.http
       .post('https://localhost:7013/linear', dataPayload, {
