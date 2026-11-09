@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Component, signal ,inject} from '@angular/core';
+import { LinearForm } from "./linear-form/linear-form";
+import { LinearRequest } from './linear-model';
 
 @Component({
-  imports: [],
+  imports: [LinearForm],
   selector: 'app-linear-generator',
   styleUrl: './linear-generator.css',
   templateUrl: './linear-generator.html',
@@ -13,11 +15,11 @@ export class LinearGenerator {
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
-  download() {
+  download(){
     this.loading.set(true);
     this.error.set(null);
 
-    const dataPayload = {
+    const dataPayload : LinearRequest= {
     Title:"MyTestTitle",
     MeasuresCount:64,
     Beats:4,
@@ -27,7 +29,7 @@ export class LinearGenerator {
     StickingType:"None",
     ShowStickings:false,
     EnableHandRestrictions:false,
-    EnableMeasureLimits:true,
+    RemoveMeasureLimits:true,
     Instruments:[
         {
             Id: 37,
@@ -42,13 +44,14 @@ export class LinearGenerator {
             HasLimit: false,
             Limit: 0,
             Probability: 1,
-            AccentProbability: 0
+            AccentProbability: 0,
+            IsStarting:false
         }
     ]
 };
 
     this.http
-      .post('https://localhost:7013/xml', dataPayload, {
+      .post('https://localhost:7013/linear', dataPayload, {
         responseType: 'blob',      // ← тело ответа как Blob
         observe: 'response',       // ← чтобы прочитать Content-Disposition
         headers: new HttpHeaders({
