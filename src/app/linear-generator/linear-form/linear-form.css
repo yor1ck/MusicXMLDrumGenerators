@@ -2,7 +2,7 @@ form {
   width: 90%;
   margin: 3rem auto;
   padding: 2rem;
-  background: linear-gradient(180deg, #253c3c, #1d4949);
+  background: linear-gradient(180deg, #30253c, #291b39);
   border-radius: 8px;
   box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.5);
 }
@@ -24,7 +24,7 @@ fieldset {
   display: block;
   font-size: 0.8rem;
   margin-bottom: 0.2rem;
-  color: #9bafaf;
+  color: #a49baf;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -35,9 +35,9 @@ fieldset {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 4px;
-  border: 1px solid #758a8a;
-  background-color: #869999;
-  color: #142020;
+  border: 1px solid #7e748a;
+  background-color: #948c9e;
+  color: #1d1420;
 }
 
 .control select {
@@ -46,9 +46,9 @@ fieldset {
   padding: 0.5rem;
   font-size: 1rem;
   border-radius: 4px;
-  border: 1px solid #758a8a;
-  background-color: #869999;
-  color: #142020;
+  border: 1px solid #7e748a;
+  background-color: #948c9e;
+  color: #1d1420;
 }
 
 .control input[type='checkbox'] {
@@ -108,4 +108,30 @@ input.ng-invalid.ng-touched.ng-dirty {
 }
 .button-remove-holder {
   text-align: center;
+}
+.button {
+  background-color: #543d6e;
+}
+.button:hover,
+.button:focus {
+  background-color: #7a5e9b;
+}
+.button-remove {
+  background-color: transparent;
+  color: #ffca99;
+}
+.button-remove:hover,
+.button-remove:focus {
+  background-color: transparent;
+  color: #ffaa5a;
+}
+.button-flat {
+  background-color: transparent;
+  color: #aa9cba;
+}
+
+.button-flat:hover,
+.button-flat:focus {
+  background-color: transparent;
+  color: #c6b8d6;
 }
