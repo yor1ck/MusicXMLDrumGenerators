@@ -50,3 +50,16 @@ body {
   background-color: transparent;
   color: #869999;
 }
+.button-remove {
+  background-color: transparent;
+  color: #ffca99;
+}
+.button-remove:hover,
+.button-remove:focus {
+  background-color: transparent;
+  color: #ffaa5a;
+}
+.button-long {
+  display: block;
+  width: 100%;
+}

@@ -14,8 +14,9 @@ export class LinearForm {
   linearGeneratorForm = form(this.linearGeneratorModel, requestSchema);
   generatePreset =output<LinearRequest>();
   onSubmit() {
-      console.log('Form submitted:', this.linearGeneratorModel()); 
+      if(!this.linearGeneratorForm().invalid()) {
       this.generatePreset.emit(this.linearGeneratorModel())   
+      }
   }
   onReset() {
     this.linearGeneratorModel.set(structuredClone(initialLinearData));

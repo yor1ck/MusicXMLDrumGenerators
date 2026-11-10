@@ -84,7 +84,7 @@
         <div class="linear-column">
             <fieldset>
                 <legend>Instruments</legend>
-                <button type="button" class="button" (click)="addInstrument()">+ Add Instrument</button>
+                <button type="button" class="button button-long" (click)="addInstrument()">+ Add Instrument</button>
                 @for (instrument of linearGeneratorForm.Instruments; track $index) {
                 <div class="linear-instrument">
                     <div class="control">
@@ -115,7 +115,7 @@
                     @if (probabilityField().invalid() && probabilityField().touched()) {
                     <div>
                         @for (error of probabilityField().errors(); track error.kind) {
-                        <div>{{ error.message }}</div>
+                        <div class="error-message">{{ error.message }}</div>
                         }
                     </div>
                     }
@@ -128,7 +128,7 @@
                     @if (accentField().invalid() && accentField().touched()) {
                     <div>
                         @for (error of accentField().errors(); track error.kind) {
-                        <div>{{ error.message }}</div>
+                        <div class="error-message">{{ error.message }}</div>
                         }
                     </div>
                     }
@@ -149,7 +149,7 @@
                     @if (limitField().invalid() && limitField().touched()) {
                     <div>
                         @for (error of limitField().errors(); track error.kind) {
-                        <div>{{ error.message }}</div>
+                        <div class="error-message">{{ error.message }}</div>
                         }
                     </div>
                     }
@@ -161,8 +161,8 @@
                         <input type="checkbox" [id]="'is-starting'+$index"
                             [formField]="linearGeneratorForm.Instruments[$index].IsStarting" />
                     </div>
-                    <div>
-                        <button type="button" class="button" (click)="removeInstrument($index)">Remove
+                    <div class="button-remove-holder">
+                        <button type="button" class="button button-remove" (click)="removeInstrument($index)">Remove
                             Instrument</button>
                     </div>
 
