@@ -1,10 +1,5 @@
 form {
-  width: 90%;
-  margin: 3rem auto;
-  padding: 2rem;
   background: linear-gradient(180deg, #30253c, #291b39);
-  border-radius: 8px;
-  box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.5);
 }
 .linear-grid {
   display: grid;
@@ -21,71 +16,28 @@ fieldset {
 }
 
 .control label {
-  display: block;
-  font-size: 0.8rem;
-  margin-bottom: 0.2rem;
   color: #a49baf;
-  text-transform: uppercase;
-  font-weight: bold;
 }
 
 .control input {
-  display: block;
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 4px;
   border: 1px solid #7e748a;
   background-color: #948c9e;
   color: #1d1420;
 }
 
 .control select {
-  display: block;
-  width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 4px;
   border: 1px solid #7e748a;
   background-color: #948c9e;
   color: #1d1420;
 }
 
 .control input[type='checkbox'] {
-  width: auto;
-  max-width: none;
-  margin-right: 0.5rem;
-  border-radius: 0;
-  border: none;
   background-color: transparent;
   color: #d9e2f1;
 }
 
 .control-error {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
   color: #ffca99;
-  height: 0.5rem;
-  padding: 0.25rem 0 0 0;
-  height: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.control-error p {
-  margin: 0;
-}
-
-.control-row {
-  margin: 0.5rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 0.5rem;
-}
-
-.control-row .control {
-  flex: 1;
 }
 
 .control:has(.ng-invalid.ng-touched.ng-dirty) label {
@@ -111,6 +63,7 @@ input.ng-invalid.ng-touched.ng-dirty {
 }
 .button {
   background-color: #543d6e;
+  color: #e6d9f1;
 }
 .button:hover,
 .button:focus {

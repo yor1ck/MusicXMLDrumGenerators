@@ -10,3 +10,7 @@ header h1 {
   letter-spacing: 0.2rem;
   color: #3e2f44;
 }
+.container p {
+  text-align: center;
+  color: #ff1515;
+}

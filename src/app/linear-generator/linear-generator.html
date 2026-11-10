@@ -1,8 +1,9 @@
-<header>
-    <h1>Linear Pattern Generator</h1>
-</header>
-<app-linear-form (generatePreset)="onGeneratePreset($event)" />
-
-@if (error()) {
-<p style="color: red;">Error downloading file.</p>
-}
+<div class="container">
+    <header>
+        <h1>Linear Pattern Generator</h1>
+    </header>
+    <app-linear-form (generatePreset)="onGeneratePreset($event)" />
+    @if (error()) {
+    <p>Error downloading file.</p>
+    }
+</div>
