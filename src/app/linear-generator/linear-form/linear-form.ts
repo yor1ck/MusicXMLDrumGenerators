@@ -1,5 +1,5 @@
 import { Component, output, signal } from '@angular/core';
-import { initialInstrumentData, initialLinearData, LinearRequest } from '../linear-model';
+import { initialInstrumentData, initialLinearData, LinearRequest, requestSchema } from '../linear-model';
 import { form, FormField } from '@angular/forms/signals';
 
 
@@ -11,13 +11,15 @@ import { form, FormField } from '@angular/forms/signals';
 })
 export class LinearForm {
   linearGeneratorModel = signal<LinearRequest>(initialLinearData);
-  linearGeneratorForm = form(this.linearGeneratorModel);
+  linearGeneratorForm = form(this.linearGeneratorModel, requestSchema);
   generatePreset =output<LinearRequest>();
   onSubmit() {
       console.log('Form submitted:', this.linearGeneratorModel()); 
       this.generatePreset.emit(this.linearGeneratorModel())   
   }
   onReset() {
+    this.linearGeneratorModel.set(structuredClone(initialLinearData));
+    this.linearGeneratorForm().reset();
   }
    addInstrument() {
     this.linearGeneratorModel.update(preset => ({

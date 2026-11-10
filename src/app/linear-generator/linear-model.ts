@@ -1,3 +1,6 @@
+import { applyEach, required, schema ,max, min} from "@angular/forms/signals";
+
+
 export interface LinearRequest {
     Title:string,
     MeasuresCount:number,
@@ -58,3 +61,16 @@ export const initialInstrumentData: LinearInstrumentRequest = {
     AccentProbability: 0,
     IsStarting:false
 }
+export const requestSchema = schema<LinearRequest>(rootPath => {
+  required(rootPath.Title, { message: 'Title is required' });
+  applyEach(rootPath.Instruments, instrumentsSchema);
+});
+
+const instrumentsSchema = schema<LinearInstrumentRequest>((path) => {
+  min(path.Limit, 0, { message: 'Limit must be greater than 0' });
+  max(path.Limit, 10, { message: 'Limit must be greater less then 10' });
+  min(path.AccentProbability, 0, { message: 'Accent probability must be greater than 0' });
+  max(path.AccentProbability, 100, { message: 'Accent probability must be less then 100' });
+  min(path.Probability, 0, { message: 'Probability must be greater than 0' });
+  max(path.Probability, 40, { message: 'Probability must be less then 40' });
+});

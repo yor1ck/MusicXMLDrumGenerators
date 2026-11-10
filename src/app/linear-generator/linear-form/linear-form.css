@@ -6,6 +6,11 @@ form {
   border-radius: 8px;
   box-shadow: 0 0 16px 1px rgba(0, 0, 0, 0.5);
 }
+.linear-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
 .control,
 fieldset {
   margin: 0.5rem 0;
@@ -81,4 +86,20 @@ fieldset {
 
 .control-row .control {
   flex: 1;
+}
+
+.control:has(.ng-invalid.ng-touched.ng-dirty) label {
+  color: #f98b75;
+}
+
+input.ng-invalid.ng-touched.ng-dirty {
+  background-color: #fbdcd6;
+  border-color: #f84e2c;
+}
+.linear-instrument {
+  border: solid 0.2rem;
+  border-radius: 4px;
+  border-color: #ffca99;
+  margin: 1rem;
+  padding: 1rem;
 }

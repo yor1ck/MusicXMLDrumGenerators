@@ -3,144 +3,173 @@
         <label for="title">Title</label>
         <input id="title" type="text" [formField]="linearGeneratorForm.Title" />
     </div>
-    <div>
-        <fieldset>
-            <legend>Full Score Settings</legend>
-            <div class="control">
-                <label for="measures">Number of measures</label>
-                <input type="number" id="measures" [formField]="linearGeneratorForm.MeasuresCount" />
-            </div>
-
-            <div class="control">
-                <label for="beat-number">Number of beats in measure</label>
-                <input type="number" id="beat-number" [formField]="linearGeneratorForm.Beats" />
-            </div>
-            <div class="control">
-                <label for="beat-type">Type of beat</label>
-                <select id="beat-type" [formField]="linearGeneratorForm.BeatType">
-                    <option value="Quarter">Quarter</option>
-                    <option value="8th">Eigth</option>
-                    <option value="16th">Sixteenth</option>
-                </select>
-            </div>
-            <div class="control">
-                <label for="note-duration">Note duration</label>
-                <select id="note-duration" [formField]="linearGeneratorForm.NotesType">
-                    <option value="Quarter">Quarter</option>
-                    <option value="Eighth">Eigth</option>
-                    <option value="EighthTriplet">Eighth Triplet</option>
-                    <option value="Sixteenth">Sixteenth</option>
-                    <option value="Quintuplet">Quintuplet</option>
-                    <option value="SixteenthTriplet">Sixteenth Triplet</option>
-                    <option value="Septuplet">Septuplet</option>
-                    <option value="ThirtySecond">Thirty Second</option>
-                </select>
-            </div>
-            <div class="control">
-                <label for="snare-type">Snare type</label>
-                <select id="snare-type" [formField]="linearGeneratorForm.SpecialSnare">
-                    <option value="None">None</option>
-                    <option value="Backbeat">Backbeat</option>
-                    <option value="HalfTime">Half time</option>
-                    <option value="BackbeatIsolated">Isolated backbeat</option>
-                    <option value="HalfTimeIsolated">Isolated half time</option>
-                </select>
-            </div>
-            <div class="control">
-                <label for="show-stickings">
-                    Show stickings
-                </label>
-                <input type="checkbox" id="show-stickings" [formField]="linearGeneratorForm.ShowStickings" />
-            </div>
-            @if (linearGeneratorModel().ShowStickings) {
-            <div class="control">
-                <label for="stickings-type">Stickings type</label>
-                <select id="stickings-type" [formField]="linearGeneratorForm.StickingType">
-                    <option value="None">None</option>
-                    <option value="AlwaysStartRight">Always start right</option>
-                    <option value="AlwaysStartLeft">Always start left</option>
-                    <option value="RightHandLead">Right hand lead</option>
-                    <option value="LeftHandLead">Left hand lead</option>
-                </select>
-            </div>
-            }
-            <div class="control">
-                <label for="hand-restrictions">
-                    Enable hand restrictions
-                </label>
-                <input type="checkbox" id="hand-restrictions"
-                    [formField]="linearGeneratorForm.EnableHandRestrictions" />
-            </div>
-
-            <div class="control">
-                <label for="remove-limits">
-                    Remove measure limits
-                </label>
-                <input type="checkbox" id="remove-limits" [formField]="linearGeneratorForm.RemoveMeasureLimits" />
-            </div>
-        </fieldset>
-    </div>
-    <div>
-        <fieldset>
-            <legend>Instruments</legend>
-            <button type="button" class="button" (click)="addInstrument()">Add Instrument</button>
-            @for (instrument of linearGeneratorForm.Instruments; track $index) {
+    <div class="linear-grid">
+        <div class="linear-column">
             <fieldset>
+                <legend>Full Score Settings</legend>
                 <div class="control">
-                    <label [for]="'instrument-type'+$index">Instrument type</label>
-                    <select [id]="'instrument-type'+$index" [formField]="linearGeneratorForm.Instruments[$index].Id">
-                        <option value="39">Snare</option>
-                        <option value="37">Bass drum</option>
-                        <option value="1">Rest</option>
-                        <option value="2">Replaced rest</option>
-                        <option value="43">Hi-hat closed</option>
-                        <option value="47">Hi-hat opened</option>
-                        <option value="51">High tom</option>
-                        <option value="46">Mid tom</option>
-                        <option value="42">Floor tom</option>
-                        <option value="52">Ride</option>
-                        <option value="54">Ride bell</option>
-                        <option value="45">Pedal hi-hat</option>
-                        <option value="41">Snare rimshot</option>
+                    <label for="measures">Number of measures</label>
+                    <input type="number" id="measures" [formField]="linearGeneratorForm.MeasuresCount" />
+                </div>
+
+                <div class="control">
+                    <label for="beat-number">Number of beats in measure</label>
+                    <input type="number" id="beat-number" [formField]="linearGeneratorForm.Beats" />
+                </div>
+                <div class="control">
+                    <label for="beat-type">Type of beat</label>
+                    <select id="beat-type" [formField]="linearGeneratorForm.BeatType">
+                        <option value="Quarter">Quarter</option>
+                        <option value="8th">Eigth</option>
+                        <option value="16th">Sixteenth</option>
                     </select>
                 </div>
                 <div class="control">
-                    <label [for]="'probability'+$index">Probability</label>
-                    <input type="number" [id]="'probability'+$index"
-                        [formField]="linearGeneratorForm.Instruments[$index].Probability" />
+                    <label for="note-duration">Note duration</label>
+                    <select id="note-duration" [formField]="linearGeneratorForm.NotesType">
+                        <option value="Quarter">Quarter</option>
+                        <option value="Eighth">Eigth</option>
+                        <option value="EighthTriplet">Eighth Triplet</option>
+                        <option value="Sixteenth">Sixteenth</option>
+                        <option value="Quintuplet">Quintuplet</option>
+                        <option value="SixteenthTriplet">Sixteenth Triplet</option>
+                        <option value="Septuplet">Septuplet</option>
+                        <option value="ThirtySecond">Thirty Second</option>
+                    </select>
                 </div>
                 <div class="control">
-                    <label [for]="'accent-probability'+$index">Accent probability</label>
-                    <input type="number" [id]="'accent-probability'+$index"
-                        [formField]="linearGeneratorForm.Instruments[$index].AccentProbability" />
+                    <label for="snare-type">Snare type</label>
+                    <select id="snare-type" [formField]="linearGeneratorForm.SpecialSnare">
+                        <option value="None">None</option>
+                        <option value="Backbeat">Backbeat</option>
+                        <option value="HalfTime">Half time</option>
+                        <option value="BackbeatIsolated">Isolated backbeat</option>
+                        <option value="HalfTimeIsolated">Isolated half time</option>
+                    </select>
                 </div>
                 <div class="control">
-                    <label [for]="'has-limit'+$index">
-                        Has limit
+                    <label for="show-stickings">
+                        Show stickings
                     </label>
-                    <input type="checkbox" [id]="'has-limit'+$index"
-                        [formField]="linearGeneratorForm.Instruments[$index].HasLimit" />
+                    <input type="checkbox" id="show-stickings" [formField]="linearGeneratorForm.ShowStickings" />
                 </div>
-                @if(linearGeneratorModel().Instruments[$index].HasLimit){
+                @if (linearGeneratorModel().ShowStickings) {
                 <div class="control">
-                    <label [for]="'limit'+$index">Limit</label>
-                    <input type="number" [id]="'limit'+$index"
-                        [formField]="linearGeneratorForm.Instruments[$index].Limit" />
+                    <label for="stickings-type">Stickings type</label>
+                    <select id="stickings-type" [formField]="linearGeneratorForm.StickingType">
+                        <option value="None">None</option>
+                        <option value="AlwaysStartRight">Always start right</option>
+                        <option value="AlwaysStartLeft">Always start left</option>
+                        <option value="RightHandLead">Right hand lead</option>
+                        <option value="LeftHandLead">Left hand lead</option>
+                    </select>
                 </div>
                 }
                 <div class="control">
-                    <label [for]="'is-starting'+$index">
-                        Is starting
+                    <label for="hand-restrictions">
+                        Enable hand restrictions
                     </label>
-                    <input type="checkbox" [id]="'is-starting'+$index"
-                        [formField]="linearGeneratorForm.Instruments[$index].IsStarting" />
+                    <input type="checkbox" id="hand-restrictions"
+                        [formField]="linearGeneratorForm.EnableHandRestrictions" />
                 </div>
-                <div>
-                    <button type="button" class="button" (click)="removeInstrument($index)">Remove Instrument</button>
+
+                <div class="control">
+                    <label for="remove-limits">
+                        Remove measure limits
+                    </label>
+                    <input type="checkbox" id="remove-limits" [formField]="linearGeneratorForm.RemoveMeasureLimits" />
                 </div>
             </fieldset>
-            }
-        </fieldset>
+        </div>
+        <div class="linear-column">
+            <fieldset>
+                <legend>Instruments</legend>
+                <button type="button" class="button" (click)="addInstrument()">+ Add Instrument</button>
+                @for (instrument of linearGeneratorForm.Instruments; track $index) {
+                <div class="linear-instrument">
+                    <div class="control">
+                        <label [for]="'instrument-type'+$index">Instrument type</label>
+                        <select [id]="'instrument-type'+$index"
+                            [formField]="linearGeneratorForm.Instruments[$index].Id">
+                            <option value="39">Snare</option>
+                            <option value="37">Bass drum</option>
+                            <option value="1">Rest</option>
+                            <option value="2">Replaced rest</option>
+                            <option value="43">Hi-hat closed</option>
+                            <option value="47">Hi-hat opened</option>
+                            <option value="51">High tom</option>
+                            <option value="46">Mid tom</option>
+                            <option value="42">Floor tom</option>
+                            <option value="52">Ride</option>
+                            <option value="54">Ride bell</option>
+                            <option value="45">Pedal hi-hat</option>
+                            <option value="41">Snare rimshot</option>
+                        </select>
+                    </div>
+                    <div class="control">
+                        <label [for]="'probability'+$index">Probability</label>
+                        <input type="number" [id]="'probability'+$index"
+                            [formField]="linearGeneratorForm.Instruments[$index].Probability" />
+                    </div>
+                    @let probabilityField = linearGeneratorForm.Instruments[$index].Probability;
+                    @if (probabilityField().invalid() && probabilityField().touched()) {
+                    <div>
+                        @for (error of probabilityField().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                    <div class="control">
+                        <label [for]="'accent-probability'+$index">Accent probability</label>
+                        <input type="number" [id]="'accent-probability'+$index"
+                            [formField]="linearGeneratorForm.Instruments[$index].AccentProbability" />
+                    </div>
+                    @let accentField = linearGeneratorForm.Instruments[$index].AccentProbability;
+                    @if (accentField().invalid() && accentField().touched()) {
+                    <div>
+                        @for (error of accentField().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                    <div class="control">
+                        <label [for]="'has-limit'+$index">
+                            Has limit
+                        </label>
+                        <input type="checkbox" [id]="'has-limit'+$index"
+                            [formField]="linearGeneratorForm.Instruments[$index].HasLimit" />
+                    </div>
+                    @if(linearGeneratorModel().Instruments[$index].HasLimit){
+                    <div class="control">
+                        <label [for]="'limit'+$index">Limit</label>
+                        <input type="number" [id]="'limit'+$index"
+                            [formField]="linearGeneratorForm.Instruments[$index].Limit" />
+                    </div>
+                    @let limitField = linearGeneratorForm.Instruments[$index].Limit;
+                    @if (limitField().invalid() && limitField().touched()) {
+                    <div>
+                        @for (error of limitField().errors(); track error.kind) {
+                        <div>{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                    }
+                    <div class="control">
+                        <label [for]="'is-starting'+$index">
+                            Is starting
+                        </label>
+                        <input type="checkbox" [id]="'is-starting'+$index"
+                            [formField]="linearGeneratorForm.Instruments[$index].IsStarting" />
+                    </div>
+                    <div>
+                        <button type="button" class="button" (click)="removeInstrument($index)">Remove
+                            Instrument</button>
+                    </div>
+
+                </div>
+                }
+            </fieldset>
+        </div>
     </div>
     <p class="form-actions">
         <button type="button" class="button button-flat" (click)="onReset()">
