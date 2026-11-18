@@ -25,13 +25,13 @@ export class LinearForm {
    addInstrument() {
     this.linearGeneratorModel.update(preset => ({
       ...preset,
-      Instruments: [...preset.Instruments, { ...initialInstrumentData }]
+      instruments: [{ ...initialInstrumentData }, ...preset.instruments ]
     }));
   }
    removeInstrument(index: number) {
     this.linearGeneratorModel.update(preset => ({
       ...preset,
-      Instruments: preset.Instruments.filter((_, i) => i !== index)
+      instruments: preset.instruments.filter((_, i) => i !== index)
     }));
   }
 }

@@ -1,7 +1,7 @@
 <form>
     <div class="control">
         <label for="title">Title</label>
-        <input id="title" type="text" [formField]="linearGeneratorForm.Title" />
+        <input id="title" type="text" [formField]="linearGeneratorForm.title" />
     </div>
     <div class="linear-grid">
         <div class="linear-column">
@@ -9,16 +9,29 @@
                 <legend>Full Score Settings</legend>
                 <div class="control">
                     <label for="measures">Number of measures</label>
-                    <input type="number" id="measures" [formField]="linearGeneratorForm.MeasuresCount" />
+                    <input type="number" id="measures" [formField]="linearGeneratorForm.measuresCount" />
                 </div>
-
+                @if (linearGeneratorForm.measuresCount().invalid()) {
+                <div>
+                    @for (error of linearGeneratorForm.measuresCount().errors(); track error.kind) {
+                    <div class="error-message">{{ error.message }}</div>
+                    }
+                </div>
+                }
                 <div class="control">
                     <label for="beat-number">Number of beats in measure</label>
-                    <input type="number" id="beat-number" [formField]="linearGeneratorForm.Beats" />
+                    <input type="number" id="beat-number" [formField]="linearGeneratorForm.beats" />
                 </div>
+                @if (linearGeneratorForm.beats().invalid()) {
+                <div>
+                    @for (error of linearGeneratorForm.beats().errors(); track error.kind) {
+                    <div class="error-message">{{ error.message }}</div>
+                    }
+                </div>
+                }
                 <div class="control">
                     <label for="beat-type">Type of beat</label>
-                    <select id="beat-type" [formField]="linearGeneratorForm.BeatType">
+                    <select id="beat-type" [formField]="linearGeneratorForm.beatType">
                         <option value="Quarter">Quarter</option>
                         <option value="8th">Eigth</option>
                         <option value="16th">Sixteenth</option>
@@ -26,7 +39,7 @@
                 </div>
                 <div class="control">
                     <label for="note-duration">Note duration</label>
-                    <select id="note-duration" [formField]="linearGeneratorForm.NotesType">
+                    <select id="note-duration" [formField]="linearGeneratorForm.notesType">
                         <option value="Quarter">Quarter</option>
                         <option value="Eighth">Eigth</option>
                         <option value="EighthTriplet">Eighth Triplet</option>
@@ -37,9 +50,16 @@
                         <option value="ThirtySecond">Thirty Second</option>
                     </select>
                 </div>
+                @if (linearGeneratorForm.notesType().invalid()) {
+                <div>
+                    @for (error of linearGeneratorForm.notesType().errors(); track error.kind) {
+                    <div class="error-message">{{ error.message }}</div>
+                    }
+                </div>
+                }
                 <div class="control">
                     <label for="snare-type">Snare type</label>
-                    <select id="snare-type" [formField]="linearGeneratorForm.SpecialSnare">
+                    <select id="snare-type" [formField]="linearGeneratorForm.specialSnare">
                         <option value="None">None</option>
                         <option value="Backbeat">Backbeat</option>
                         <option value="HalfTime">Half time</option>
@@ -51,12 +71,12 @@
                     <label for="show-stickings">
                         Show stickings
                     </label>
-                    <input type="checkbox" id="show-stickings" [formField]="linearGeneratorForm.ShowStickings" />
+                    <input type="checkbox" id="show-stickings" [formField]="linearGeneratorForm.showStickings" />
                 </div>
-                @if (linearGeneratorModel().ShowStickings) {
+                @if (linearGeneratorModel().showStickings) {
                 <div class="control">
                     <label for="stickings-type">Stickings type</label>
-                    <select id="stickings-type" [formField]="linearGeneratorForm.StickingType">
+                    <select id="stickings-type" [formField]="linearGeneratorForm.stickingType">
                         <option value="None">None</option>
                         <option value="AlwaysStartRight">Always start right</option>
                         <option value="AlwaysStartLeft">Always start left</option>
@@ -70,14 +90,14 @@
                         Enable hand restrictions
                     </label>
                     <input type="checkbox" id="hand-restrictions"
-                        [formField]="linearGeneratorForm.EnableHandRestrictions" />
+                        [formField]="linearGeneratorForm.enableHandRestrictions" />
                 </div>
 
                 <div class="control">
                     <label for="remove-limits">
                         Remove measure limits
                     </label>
-                    <input type="checkbox" id="remove-limits" [formField]="linearGeneratorForm.RemoveMeasureLimits" />
+                    <input type="checkbox" id="remove-limits" [formField]="linearGeneratorForm.removeMeasureLimits" />
                 </div>
             </fieldset>
         </div>
@@ -85,12 +105,12 @@
             <fieldset>
                 <legend>Instruments</legend>
                 <button type="button" class="button button-long" (click)="addInstrument()">+ Add Instrument</button>
-                @for (instrument of linearGeneratorForm.Instruments; track $index) {
+                @for (instrument of linearGeneratorForm.instruments; track $index) {
                 <div class="linear-instrument">
                     <div class="control">
                         <label [for]="'instrument-type'+$index">Instrument type</label>
                         <select [id]="'instrument-type'+$index"
-                            [formField]="linearGeneratorForm.Instruments[$index].Id">
+                            [formField]="linearGeneratorForm.instruments[$index].id">
                             <option value="39">Snare</option>
                             <option value="37">Bass drum</option>
                             <option value="1">Rest</option>
@@ -109,9 +129,9 @@
                     <div class="control">
                         <label [for]="'probability'+$index">Probability</label>
                         <input type="number" [id]="'probability'+$index"
-                            [formField]="linearGeneratorForm.Instruments[$index].Probability" />
+                            [formField]="linearGeneratorForm.instruments[$index].probability" />
                     </div>
-                    @let probabilityField = linearGeneratorForm.Instruments[$index].Probability;
+                    @let probabilityField = linearGeneratorForm.instruments[$index].probability;
                     @if (probabilityField().invalid() && probabilityField().touched()) {
                     <div>
                         @for (error of probabilityField().errors(); track error.kind) {
@@ -122,9 +142,9 @@
                     <div class="control">
                         <label [for]="'accent-probability'+$index">Accent probability</label>
                         <input type="number" [id]="'accent-probability'+$index"
-                            [formField]="linearGeneratorForm.Instruments[$index].AccentProbability" />
+                            [formField]="linearGeneratorForm.instruments[$index].accentProbability" />
                     </div>
-                    @let accentField = linearGeneratorForm.Instruments[$index].AccentProbability;
+                    @let accentField = linearGeneratorForm.instruments[$index].accentProbability;
                     @if (accentField().invalid() && accentField().touched()) {
                     <div>
                         @for (error of accentField().errors(); track error.kind) {
@@ -137,15 +157,15 @@
                             Has limit
                         </label>
                         <input type="checkbox" [id]="'has-limit'+$index"
-                            [formField]="linearGeneratorForm.Instruments[$index].HasLimit" />
+                            [formField]="linearGeneratorForm.instruments[$index].hasLimit" />
                     </div>
-                    @if(linearGeneratorModel().Instruments[$index].HasLimit){
+                    @if(linearGeneratorModel().instruments[$index].hasLimit){
                     <div class="control">
                         <label [for]="'limit'+$index">Limit</label>
                         <input type="number" [id]="'limit'+$index"
-                            [formField]="linearGeneratorForm.Instruments[$index].Limit" />
+                            [formField]="linearGeneratorForm.instruments[$index].limit" />
                     </div>
-                    @let limitField = linearGeneratorForm.Instruments[$index].Limit;
+                    @let limitField = linearGeneratorForm.instruments[$index].limit;
                     @if (limitField().invalid() && limitField().touched()) {
                     <div>
                         @for (error of limitField().errors(); track error.kind) {
@@ -159,7 +179,7 @@
                             Is starting
                         </label>
                         <input type="checkbox" [id]="'is-starting'+$index"
-                            [formField]="linearGeneratorForm.Instruments[$index].IsStarting" />
+                            [formField]="linearGeneratorForm.instruments[$index].isStarting" />
                     </div>
                     <div class="button-remove-holder">
                         <button type="button" class="button button-remove" (click)="removeInstrument($index)">Remove

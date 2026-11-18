@@ -9,8 +9,11 @@ form {
 .control,
 fieldset {
   margin: 0.5rem 0;
+  border-radius: 4px;
 }
-
+fieldset {
+  background-color: #251b39;
+}
 .control.no-margin {
   margin-bottom: 0;
 }
@@ -35,7 +38,9 @@ fieldset {
   background-color: transparent;
   color: #d9e2f1;
 }
-
+.control input[type='checkbox']:checked {
+  accent-color: #7a5e9b;
+}
 .control-error {
   color: #ffca99;
 }
@@ -48,12 +53,17 @@ input.ng-invalid.ng-touched.ng-dirty {
   background-color: #fbdcd6;
   border-color: #f84e2c;
 }
+select.ng-invalid.ng-touched.ng-dirty {
+  background-color: #fbdcd6;
+  border-color: #f84e2c;
+}
 .linear-instrument {
   border: solid 1px;
   border-radius: 4px;
   border-color: #ffca99;
   margin: 1rem;
   padding: 1rem;
+  background-color: #291b39;
 }
 .error-message {
   color: #f98b75;
