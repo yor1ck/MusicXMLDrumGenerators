@@ -1,1 +1,150 @@
-<p>trap-form works!</p>
+<form>
+    <div class="control">
+        <label for="title">Title</label>
+        <input id="title" type="text" [formField]="trapGeneratorForm.title" />
+    </div>
+    <div class="trap-grid">
+        <div class="trap-column">
+            <fieldset>
+                <legend>Full Score Settings</legend>
+                <div class="control">
+                    <label for="patterns">Number of patterns</label>
+                    <input type="number" id="patterns" [formField]="trapGeneratorForm.patternsCount" />
+                </div>
+                @if (trapGeneratorForm.patternsCount().invalid()) {
+                <div>
+                    @for (error of trapGeneratorForm.patternsCount().errors(); track error.kind) {
+                    <div class="error-message">{{ error.message }}</div>
+                    }
+                </div>
+                }
+                <div class="control">
+                    <label for="measures">Measures in pattern</label>
+                    <input type="number" id="measures" [formField]="trapGeneratorForm.measuresCount" />
+                </div>
+                @if (trapGeneratorForm.measuresCount().invalid()) {
+                <div>
+                    @for (error of trapGeneratorForm.measuresCount().errors(); track error.kind) {
+                    <div class="error-message">{{ error.message }}</div>
+                    }
+                </div>
+                }
+                <div class="control">
+                    <label for="beat-number">Number of beats in measure</label>
+                    <input type="number" id="beat-number" [formField]="trapGeneratorForm.beatsCount" />
+                </div>
+                @if (trapGeneratorForm.beatsCount().invalid()) {
+                <div>
+                    @for (error of trapGeneratorForm.beatsCount().errors(); track error.kind) {
+                    <div class="error-message">{{ error.message }}</div>
+                    }
+                </div>
+                }
+                <div class="control">
+                    <label for="snare-type">Snare type</label>
+                    <select id="snare-type" [formField]="trapGeneratorForm.snare">
+                        <option value="Backbeat">Backbeat</option>
+                        <option value="HalfTime">Half time</option>
+                        <option value="WholeTime">Whole time</option>
+                    </select>
+                </div>
+                <div class="control">
+                    <label for="polyrhythms">Allowed polyrhythms</label>
+                    <select id="polyrhythms" [formField]="trapGeneratorForm.polyrhythms">
+                        <option value="None">None</option>
+                        <option value="TwoToThree">2 to 3</option>
+                        <option value="TreeToFour">3 to 4</option>
+                    </select>
+                </div>
+                <div class="control">
+                    <label for="no-melody">
+                        No melody
+                    </label>
+                    <input type="checkbox" id="no-melody" [formField]="trapGeneratorForm.noMelody" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Instruments</legend>
+                <button type="button" class="button button-long" (click)="addInstrument()">+ Add Instrument</button>
+                @for (instrument of trapGeneratorForm.notesProbabilities; track $index) {
+                <div class="trap-instrument">
+                    <div class="control">
+                        <label [for]="'instrument-type'+$index">Instrument type</label>
+                        <select [id]="'instrument-type'+$index"
+                            [formField]="trapGeneratorForm.notesProbabilities[$index].id">
+                            <option value="39">Snare</option>
+                            <option value="37">Bass drum</option>
+                            <option value="1">Rest</option>
+                            <option value="43">Hi-hat closed</option>
+                            <option value="47">Hi-hat opened</option>
+                            <option value="51">High tom</option>
+                            <option value="46">Mid tom</option>
+                            <option value="42">Floor tom</option>
+                            <option value="52">Ride</option>
+                            <option value="54">Ride bell</option>
+                            <option value="45">Pedal hi-hat</option>
+                            <option value="41">Snare rimshot</option>
+                        </select>
+                    </div>
+                    <div class="control">
+                        <label [for]="'probability'+$index">Probability</label>
+                        <input type="number" [id]="'probability'+$index"
+                            [formField]="trapGeneratorForm.notesProbabilities[$index].probability" />
+                    </div>
+                    @let probabilityField = trapGeneratorForm.notesProbabilities[$index].probability;
+                    @if (probabilityField().invalid() && probabilityField().touched()) {
+                    <div>
+                        @for (error of probabilityField().errors(); track error.kind) {
+                        <div class="error-message">{{ error.message }}</div>
+                        }
+                    </div>
+                    }
+                    <div class="button-remove-holder">
+                        <button type="button" class="button button-remove" (click)="removeInstrument($index)">Remove
+                            Instrument</button>
+                    </div>
+                </div>
+                }
+            </fieldset>
+        </div>
+        <div class="trap-column">
+            <fieldset>
+                <legend>Bases fragments</legend>
+                <div class="trap-flex">
+                    @for (base of trapGeneratorForm.fragmentBases; track $index){
+                    <div class="trap-flex">
+                        <img [src]="'images/trap/bases/'+ ($index+1) + '.png'" class="loop-img" />
+                        <div class="control">
+                            <label [for]="'base'+$index">Probability</label>
+                            <input type="number" [id]="'base'+$index"
+                                [formField]="trapGeneratorForm.notesProbabilities[$index].probability" />
+                        </div>
+                        @let probabilityField = trapGeneratorForm.notesProbabilities[$index].probability;
+                        @if (probabilityField().invalid() && probabilityField().touched()) {
+                        <div>
+                            @for (error of probabilityField().errors(); track error.kind) {
+                            <div class="error-message">{{ error.message }}</div>
+                            }
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Melodies fragments</legend>
+            </fieldset>
+            <fieldset>
+                <legend>Locked fragments</legend>
+            </fieldset>
+        </div>
+    </div>
+    <p class="form-actions">
+        <button type="button" class="button button-flat" (click)="onReset()">
+            Reset
+        </button>
+        <button type="button" class="button" [disabled]="this.trapGeneratorForm().invalid()"
+            (click)="onSubmit()">Generate
+            pattern</button>
+    </p>
+</form>

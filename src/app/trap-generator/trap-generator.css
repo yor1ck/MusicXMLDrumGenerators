@@ -1,0 +1,15 @@
+header {
+  margin: 2rem 0;
+  text-align: center;
+}
+header h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  margin: 1rem 0;
+  letter-spacing: 0.2rem;
+  color: #3e2f44;
+}
+.container p {
+  color: #ff1515;
+}

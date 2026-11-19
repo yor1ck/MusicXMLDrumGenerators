@@ -2,7 +2,7 @@
     <header>
         <h1>Trap Pattern Generator</h1>
     </header>
-    <button (click)="onGeneratePreset()">Generate</button>
+    <app-trap-form (generatePreset)="onGeneratePreset($event)" />
     @if (error()) {
     <p>Error downloading file.</p>
     }

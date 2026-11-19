@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Component, signal ,inject} from '@angular/core';
 import { TrapRequest } from './trap-model';
+import { TrapForm } from "./trap-form/trap-form";
 @Component({
-  imports: [],
+  imports: [TrapForm],
   selector: 'app-trap-generator',
   styleUrl: './trap-generator.css',
   templateUrl: './trap-generator.html',
@@ -12,11 +13,10 @@ export class TrapGenerator {  private http = inject(HttpClient);
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
 
-  onGeneratePreset():void{
+  onGeneratePreset(model: TrapRequest):void{
     this.loading.set(true);
-    this.error.set(null);
-
-    const dataPayload : TrapRequest= {
+    this.error.set(null); 
+    let dataPayload : TrapRequest= {
   "fragmentBases": [
     {
       "id": 2,
@@ -64,25 +64,28 @@ export class TrapGenerator {  private http = inject(HttpClient);
     }
   ],
   "beatsCount": 4,
-  "measuresCount": 16,
+  "measuresCount": 2,
+  "patternsCount": 16,
   "title": "fills",
   "snare": "HalfTime",
   "polyrhythms": "TwoToThree",
-  "noMelody": true,
+  "noMelody": false,
   "lockedBases": [
     0,
     0,
     0,
-    0
+    0,0,0,0,0
   ],
   "lockedMelodies": [
     0,
     0,
     0,
-    0
+    0,0,0,0,0
   ]
 };
-
+   if(model){
+      dataPayload = model;
+    }
     this.http
       .post('https://localhost:7013/trap', dataPayload, {
         responseType: 'blob',      // ← тело ответа как Blob
